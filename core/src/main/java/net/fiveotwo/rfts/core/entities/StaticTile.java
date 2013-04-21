@@ -2,6 +2,7 @@ package net.fiveotwo.rfts.core.entities;
 
 import playn.core.Color;
 import playn.core.Surface;
+import net.fiveotwo.rfts.core.PlanetLander;
 import net.fiveotwo.rfts.core.utils.Tile;
 import net.fiveotwo.rfts.core.utils.Vector2;
 
@@ -13,7 +14,8 @@ public class StaticTile extends Tile{
 
 	@Override
 	public void Draw(Surface surf, Vector2 position) {
-		
+		if(this.Texture!=null)
+	//	surf.drawImage(PlanetLander.Imagenes.get(Texture), position.X, position.Y);
 		DebugDraw(surf,position);
 	}
 

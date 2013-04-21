@@ -18,10 +18,10 @@ public class SplashScreen extends Screen{
 	private boolean done;
 	private int counter = 0;
 	int ldcounter=0;
-	private PlanetLander dig;
+	private PlanetLander planet;
 	int finalpos=150;
-	public SplashScreen(PlanetLander dig){
-		this.dig = dig;
+	public SplashScreen(PlanetLander planet){
+		this.planet = planet;
 	}
 	
 	@Override
@@ -145,8 +145,8 @@ public class SplashScreen extends Screen{
 			cargando.setAlpha(cargando.alpha()-0.01f);
 			}else{
 			PlayN.graphics().rootLayer().remove(logo);
-		//	dig.activeScreen = dig.mainme;
-		//	dig.activeScreen.Init();
+			planet.activeScreen = planet.mainme;
+			planet.activeScreen.Init();
 			}
 		}
 		}

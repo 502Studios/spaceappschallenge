@@ -11,39 +11,43 @@ import net.fiveotwo.rfts.core.utils.TileMap;
 
 public class MapGenerator {
 	net.fiveotwo.rfts.core.utils.Tile[][] TileMap;
+	
 	public MapGenerator(){
 		
 	}
 	
-	public net.fiveotwo.rfts.core.utils.TileMap GenerateMap(int x, int y, int base, float complexity){//the delegator
-		TileMap tl=new RealGenerator().GenerateMapBit(x,y,base, complexity);	
-		return tl;		
+	public net.fiveotwo.rfts.core.utils.TileMap GenerateMap(int x, int y, int base, float complexity, String mapa){//the delegator
+		TileMap tl=new RealGenerator().GenerateMapBit(x,y,base, complexity, mapa);	
+		return tl;
 	}
 	
 }
 
 class RealGenerator{//the delegate
+	String map;
 	public static net.fiveotwo.rfts.core.utils.Tile[][] tilemap;
 	public static List<Ant> hormigas;
-	TileMap GenerateMapBit(int x, int y,int base, float complexity){// size and type of terrain
+	TileMap GenerateMapBit(int x, int y,int base, float complexity, String map){// size and type of terrain
+		this.map=map;
 		tilemap=new Tile[x][y];
 		for(int sx=0;sx<x;sx++){
 			for(int sy=0;sy<y;sy++){
-						setTile(sx,sy,new StaticTile(String.valueOf(base),base,String.valueOf(base),0));		
+						setTile(sx,sy,new StaticTile("",base,String.valueOf(base),0));		
 			}			
 		}
 		FillBottom();
 		hormigas=new ArrayList<Ant>();
 		//fill with ants
-		int total= (int)((x*y)/((x+y))*complexity);		
+		int total= (int)((x*2)/((x+(y/6)))*complexity);	
 		for(int xv=0;xv<total;xv++){
-			int lifespawn=(int) (Math.random()*1000);
+			int lifespawn=(int) (Math.random()*complexity);
 			int size=(int) (Math.random()*Width());
 			int height=(int) Height()-50;
-			int val=(int) 1;
-			Ant ant=new Ant(tilemap, val, lifespawn,size,height);
+			double value=Math.random()*4;
+			int val=(int)value;
+			Ant ant=new Ant(tilemap, val, lifespawn,size,height,map);
 			hormigas.add(ant);
-		}		
+		}
 		
 		while(hormigas.size()>0){
 			for(Ant hor: hormigas){
@@ -53,6 +57,14 @@ class RealGenerator{//the delegate
 					hormigas.remove(hor);					
 					break;
 				}
+			}
+		}
+		
+		for(int sx=0;sx<x;sx++){
+			for(int sy=1;sy<y-1;sy++){
+						if(tilemap[sx][sy].Collision==1&&tilemap[sx][sy-1].Collision==0){
+							setTile(sx,sy,new StaticTile(map+"5",2,String.valueOf(2),1));	
+						}
 			}
 		}
 		
@@ -82,7 +94,10 @@ class RealGenerator{//the delegate
 	void FillBottom(){
 		for(int sx=0;sx<Width();sx++){
 			for(int sy=Height()-50;sy<Height();sy++){
-						setTile(sx,sy,new StaticTile("",1,"",1));
+				double value=Math.random()*4;
+				int val=(int)value;
+				
+				//		setTile(sx,sy,new StaticTile(map+val,1,"",1));
 			}			
 		}
 	}

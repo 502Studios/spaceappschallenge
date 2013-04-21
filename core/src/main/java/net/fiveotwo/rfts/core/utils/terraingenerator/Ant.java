@@ -9,12 +9,14 @@ public class Ant {
 	int PositionX,PositionY,Type,Life;
 	Tile[][] Mapa;
 	int Direction;
-	public Ant(Tile[][] mp, int type, int life, int posx, int posy){
+	String planet;
+	public Ant(Tile[][] mp, int type, int life, int posx, int posy, String planet){
 		this.Type=type;
 		this.Life=life;
 		this.PositionX=posx;
 		this.PositionY=posy;
 		this.Mapa=mp;
+		this.planet=planet;
 	}
 	
 	public void Update(float delta){
@@ -23,58 +25,60 @@ public class Ant {
 		switch(Direction){
 		case 0://up
 			if(getTile(PositionX,PositionY-1) != null){
-				setTile(PositionX,PositionY-1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX,PositionY-1,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionY=PositionY-1;
 				CheckBottoms();
 			}
 			break;
 		case 1://upl
 			if(getTile(PositionX-1,PositionY-1) != null){
-				setTile(PositionX-1,PositionY-1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX-1,PositionY-1,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX-1;PositionY=PositionY-1;
 				CheckBottoms();
 			}
 			break;
 		case 2://left
 			if(getTile(PositionX-1,PositionY) != null){
-				setTile(PositionX-1,PositionY,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX-1,PositionY,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX-1;
 				CheckBottoms();
 			}
 			break;
 		case 3://downl
 			if(getTile(PositionX-1,PositionY+1) != null){
-				setTile(PositionX-1,PositionY+1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX-1,PositionY+1,new StaticTile(planet+String.valueOf(this.Type),1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX-1;PositionY=PositionY+1;
 				CheckBottoms();
 			}
 			break;
 		case 4://down
 			if(getTile(PositionX,PositionY+1) != null){
-				setTile(PositionX,PositionY+1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX,PositionY+1,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionY=PositionY+1;
 				CheckBottoms();
 			}
 			break;
 		case 5://downr
 			if(getTile(PositionX+1,PositionY+1) != null){
-				setTile(PositionX+1,PositionY+1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX+1,PositionY+1,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX+1;PositionY=PositionY+1;
+				CheckBottoms();
 			}
 			break;
 		case 6://right
 			if(getTile(PositionX+1,PositionY) != null){
-				setTile(PositionX+1,PositionY,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX+1,PositionY,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX+1;
 				CheckBottoms();
 			}
 			break;
 		case 7://upr
 			if(getTile(PositionX+1,PositionY-1) != null){ 
-				setTile(PositionX+1,PositionY-1,new StaticTile(String.valueOf(this.Type), this.Type, String.valueOf(this.Type), Direction));
+				setTile(PositionX+1,PositionY-1,new StaticTile(planet+String.valueOf(this.Type), 1, String.valueOf(this.Type), Direction));
 				PositionX=PositionX+1;PositionY=PositionY-1;
 				CheckBottoms();
 			}
+			
 			break;										
 		}
 	}
@@ -118,13 +122,10 @@ public class Ant {
 		if(getTile(PositionX,PositionY+1) != null){
 			for(int y=PositionY+1;y<Height();y++){
 				if(getTile(PositionX,y).Collision==0){
-				setTile(PositionX,y,new StaticTile(String.valueOf(this.Type), 2, String.valueOf(this.Type), 2));
-				}else{
-					return;
-				}
+					setTile(PositionX,y,new StaticTile(planet+(int)Math.random()*5, 2, String.valueOf(this.Type), 2));
+				}else{break;}
 			}
 		}
-	}
-	
+	}	
 	
 }

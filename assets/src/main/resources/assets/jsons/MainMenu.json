@@ -1,0 +1,32 @@
+{
+	"metadata":{
+                        "name": "mainmenu",
+                        "upperlevel":"none"
+	},
+                
+                "Buttons":[
+                            {
+                            "image":"bnorm",
+                            "pressed_image":"bnormpick",
+                            "text_image":"ltest",
+                            "number":0,
+                            "text":"Apollo 11",
+                            "text_string":"ok",
+                            "action":"changelevel",
+                            "destination":"Tutorial1",
+                            "previousLevel":"none",
+                            "x":50,
+                            "y":150,
+                            "w":40,
+                            "h":40                            
+                             }    
+                ],
+                "Images":[
+                        {
+                           "image":"images/Entities/caves.png",
+                           "x":160,
+                           "y":160
+                        }
+                ]             
+                
+}

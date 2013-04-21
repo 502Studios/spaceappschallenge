@@ -29,12 +29,12 @@ public class TileMap {
 		if(cam.Position().Y>mapHeight-(ScreenHeight/2)){
 			cam.setPosition(new Vector2(cam.Position().X,mapHeight-(ScreenHeight/2)));
 		}
-		offsetX = (ScreenWidth/2 - Math.round(cam.Position().X));
+		offsetX = (ScreenWidth/4 - Math.round(cam.Position().X));
 		offsetX = Math.min(offsetX, 0);
-		offsetX = Math.max(offsetX, (ScreenWidth/2) - mapWidth);
-		offsetY = ScreenHeight/2- Math.round(cam.Position().Y);
+		offsetX = Math.max(offsetX, (ScreenWidth/4) - mapWidth);
+		offsetY = ScreenHeight/4- Math.round(cam.Position().Y);
 		offsetY = Math.min(offsetY, 0);
-		offsetY = Math.max((ScreenHeight/2 - mapHeight),
+		offsetY = Math.max((ScreenHeight/4 - mapHeight),
 				offsetY);
 		// which tiles are visible_
 		firstTileX = pixelsToTilesX(-offsetX);
@@ -75,6 +75,7 @@ public class TileMap {
 				for (int y = firstTileY; y < lastTileY; y++) {
 						Vector2 position = new Vector2(tilesToPixelsX(x)
 								+ offsetX-1, tilesToPixelsY(y) + offsetY-1);
+						if(tilemap[x][y].Texture!="")
 						tilemap[x][y].Draw(surf, position);
 				}
 			}
